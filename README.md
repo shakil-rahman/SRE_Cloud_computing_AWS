@@ -25,9 +25,12 @@
 
 ### AWS Services:
 - Amazon Web Services (AWS) - A cloud services provider with the largest market share
-- Not all services are available at each AZ
 - Region represents a separate geographical area (Ireland, London)
 - Availability Zones (AZ) are the actual data centres within each region, there must be at least two AZ in each region
+- Not all services are available at each AZ
+
+### AWS Global Infrastructure:
+![Global Infrastructure](./img/AWS.JPG)
 
 ### Content Delivery Network (CDN):
 - Servers that are geographically closer to the user and stores your application
@@ -36,7 +39,10 @@
 ### Solutions:
 #### On-premise
 - User owns all the servers and stores them locally
+- More secure but puts the costs on the user for maintenance and security
 #### Public cloud
-- User rents all the server usage from a provider
+- User rents all the server usage from a provider 
+- Provider handles maintenance/security, user only pays for what they use
 #### Hybrid
-- User keeps some data local (on-prem) and other data in the cloud
+- User keeps some data local (on-prem) and other data in the cloud (Government, Banks)
+- Allows for better security where needed and lower cost where it isn't needed
