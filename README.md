@@ -49,8 +49,30 @@
 
 ### AWS Diagram:
 ![AWS Diagram](./img/AWS_diagram.png)
-- First you need an IAM role that provides you with permissions
+- First you need an IAM (Identity and Access Management) role that provides you with permissions
 - ec2 (elastic compute service) - Virtual Machine (VM)
 - Secure it with Security groups and create a file.pem
 - Store the file.pem in the .ssh folder
 - VM: Computer file that behaves like an actual computer. AWS needs to know the specs for the VM similar to the specs of a laptop/desktop
+
+### Launch an Instance:
+- Select your Region (Ireland - eu-west-1)
+- Select EC2 then Launch Instance
+- Select OS (Ubuntu Server 18.04)
+- Choose an instance  that decides CPU, RAM, Network Performance (t2.micro)
+- Configure instance details (enter Subnet and enable Public IP)
+- Add storage (default)
+- Add tags (Name - 105_sre_shakilur_nginx)
+- Configure security groups (SSH rules to your IP, HTTP rule for global access)
+- SSH uses port 22, HTTP uses port 80
+- Launch instance
+
+### SSH into an Instance:
+- Locate your private key (105.pem)
+- Change permissions of file to readonly (chmod 400 105.pem)
+- Connect to instance from git bash (ssh -i "105.pem" ubuntu@ec2-34-255-207-109.eu-west-1.compute.amazonaws.com)
+- Now you are inside the VM run the following commands:
+    - sudo apt-get update -y
+    - sudo apt-get upgrade -y
+    - sudo apt-get install nginx -y
+- Go to the public IP address to check the instance is running
