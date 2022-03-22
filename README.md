@@ -46,3 +46,11 @@
 #### Hybrid
 - User keeps some data local (on-prem) and other data in the cloud (Government, Banks)
 - Allows for better security where needed and lower cost where it isn't needed
+
+### AWS Diagram:
+![AWS Diagram](./img/AWS_diagram.png)
+- First you need an IAM role that provides you with permissions
+- ec2 (elastic compute service) - Virtual Machine (VM)
+- Secure it with Security groups and create a file.pem
+- Store the file.pem in the .ssh folder
+- VM: Computer file that behaves like an actual computer. AWS needs to know the specs for the VM similar to the specs of a laptop/desktop
