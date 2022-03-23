@@ -2,6 +2,7 @@
 ## Useful Links:
 - Global Infrastructure: https://aws.amazon.com/about-aws/global-infrastructure/
 - Chmod Calculator: https://chmod-calculator.com/ 
+- Amazon VPC Concepts: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
 ## User Journey
 ### User Experience
 #### Cloud Computing with AWS
@@ -155,3 +156,36 @@ sudo systemctl enable tomcat9
 - Tomcat server runs on port: `8080`, Add it to the security group on AWS
 - Tomcat server lets developers implement an array of Java applications
 - Tomcat is also used to deploy web applications (like a web server)
+
+### Technical Questions:
+#### What is a VPC?
+- VPC stands for Virtual Private Cloud
+- It is a secure and isolated private cloud that is hosted within a public cloud
+- Private clouds are cloud computing environments dedicated to a single customer 
+#### What is an internet gateway?
+- A horizontally scaled (highly available) VPC component that allows communications between your VPC and the internet
+- Node that connects two networks with different transmission protocols together
+- It is where data stops before entering the server
+#### What are route tables?
+- A database that keeps track of paths, and uses that information to forward traffic
+- Contain a set of rules, called routes, that determines where traffic from subnet/gateway is directed
+#### What is a subnet?
+- A range of IP addresses in your VPC
+- They divide the network into more networks
+#### What are NACLs?
+- NACL stands for Network Access Control List
+- Controls traffic to/from a subnet based on a set of inbound/outbound rules
+- They can be seen as a firewall for the subnet
+#### What are security groups?
+- Acts as a virtual firewall for an EC2 instance
+- Once attached to an EC2 instance it controls inbound/outbound traffic for the instance
+#### How did you secure your app on the public cloud?
+- We created security groups that controlled the inbound/outbound traffic
+- We stored a key locally that allowed us to ssh into our instances
+#### What are the outbound rules for security groups by default? and why?
+- The default is to allow all outbound traffic to leave 
+- Server doesn't limit who is requesting the resource and what port they are on
+#### What is the command to kill a process in linux?
+- Using Process Name: `killall proccess`
+- Using Process ID: `kill processID`
+- Unresponsive Process: `kill -9 processID`
