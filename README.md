@@ -79,6 +79,7 @@
 - Go to the public IP address to check the instance is running
 
 ### Linux Commands:
+- How to become a super user (USE CAREFULLY): `sudo su` then `exit` to return
 - How to check the status of a service: `systemctl status name_service`
 - How to start a service: `sudo systemctl start name_service`
 - How to stop a service: `sudo systemctl stop name_service`
@@ -102,5 +103,28 @@
 - How to check a file permissions: `ll`
 - How to change a files permission: `chmod required_permission file_name`
 - How to create an exe file: `touch file_name.sh`
-- Examples: 400 - readonly, +x - executable
+- Examples: `400` - readonly, `+x` - executable
 - write `w`, read `r`, executable `x`
+
+### Bash Scripting - Automate Process with a Script:
+```
+#!/bin/bash
+# it must start with #!/bin/bash
+
+# run updates
+sudo apt-get update -y
+
+# run upgrades
+sudo apt-get upgrade -y
+
+# install nginx
+sudo apt-get install nginx -y
+
+# ensure it is running - start nginx
+sudo systemctl start nginx
+
+# enable nginx
+sudo systemctl enable nginx
+```
+- Change file to exe file: `chmod +x provision.sh`
+- How to run an exe file: `./provision.sh`
