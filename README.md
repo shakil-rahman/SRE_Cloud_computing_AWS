@@ -69,10 +69,17 @@
 
 ### SSH into an Instance:
 - Locate your private key (105.pem)
-- Change permissions of file to readonly (chmod 400 105.pem)
-- Connect to instance from git bash (ssh -i "105.pem" ubuntu@ec2-34-255-207-109.eu-west-1.compute.amazonaws.com)
+- Change permissions of file to readonly `chmod 400 105.pem`
+- Connect to instance from git bash `ssh -i "105.pem" ubuntu@ec2-34-255-207-109.eu-west-1.compute.amazonaws.com`
 - Now you are inside the VM run the following commands:
-    - sudo apt-get update -y
-    - sudo apt-get upgrade -y
-    - sudo apt-get install nginx -y
+    - `sudo apt-get update -y`
+    - `sudo apt-get upgrade -y`
+    - `sudo apt-get install nginx -y`
 - Go to the public IP address to check the instance is running
+
+### Linux Commands:
+- How to check the status of a service: `systemctl status name_service`
+- How to start a service: `sudo systemctl start name_service`
+- How to stop a service: `sudo systemctl stop name_service`
+- How to enable a service (start on startup): `sudo systemctl enable service_name` 
+- How to install a package: `sudo apt-get install package_name -y`
