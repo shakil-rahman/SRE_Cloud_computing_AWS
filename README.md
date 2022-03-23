@@ -128,3 +128,27 @@ sudo systemctl enable nginx
 ```
 - Change file to exe file: `chmod +x provision.sh`
 - How to run an exe file: `./provision.sh`
+
+### Automate Tomcat with a Script:
+```
+#!/bin/bash
+# it must start with #!/bin/bash
+
+# run updates
+sudo apt-get update -y
+
+# run upgrades
+sudo apt-get upgrade -y
+
+# install tomcat
+sudo apt-get install tomcat9 -y
+
+# ensure it is running - start tomcat
+sudo systemctl start tomcat9
+
+# enable tomcat
+sudo systemctl enable tomcat9
+```
+- Tomcat server runs on port 8080
+- Tomcat server lets developers implement an array of Java applications
+- Tomcat is also used to deploy web applications (like a web server)
