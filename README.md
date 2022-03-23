@@ -189,3 +189,5 @@ sudo systemctl enable tomcat9
 - Using Process Name: `killall proccess`
 - Using Process ID: `kill processID`
 - Unresponsive Process: `kill -9 processID`
+
+![Diagram](img/vpc-security-guards.png)
