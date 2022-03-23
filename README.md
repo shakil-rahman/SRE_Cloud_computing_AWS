@@ -1,6 +1,7 @@
 # SRE Intro
 ## Useful Links:
 - Global Infrastructure: https://aws.amazon.com/about-aws/global-infrastructure/
+- Chmod Calculator: https://chmod-calculator.com/ 
 ## User Journey
 ### User Experience
 #### Cloud Computing with AWS
@@ -88,8 +89,18 @@
 - Who am I: `uname` or `uname -a`
 - Where am I: `pwd`
 - How to create a directory: `mkdir dir_name`
+- How to change directory: `cd dir_name` or `cd ..`
 - How to check files: `ls` or `ls -a`
 - How to create a file: `touch file_name` or `nano file_name`
 - How to read contents of a file without entering the file: `cat file_name`
 - How to copy a file: `cp file_name destination_name`
-- How to move a file: `mv file_name destination_name`
+- How to move a file (also used to rename file): `mv file_name destination_name`
+- How to delete a directory (remove forcefully): `sudo rm -rf dir_name`
+- How to delete a file: `rm file_name`
+
+### File Permissions:
+- How to check a file permissions: `ll`
+- How to change a files permission: `chmod required_permission file_name`
+- How to create an exe file: `touch file_name.sh`
+- Examples: 400 - readonly, +x - executable
+- write `w`, read `r`, executable `x`
