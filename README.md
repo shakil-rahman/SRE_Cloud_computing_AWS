@@ -83,3 +83,13 @@
 - How to stop a service: `sudo systemctl stop name_service`
 - How to enable a service (start on startup): `sudo systemctl enable service_name` 
 - How to install a package: `sudo apt-get install package_name -y`
+- How to remove a package: `sudo apt remove package_name -y`
+- How to check all processes: `top`
+- Who am I: `uname` or `uname -a`
+- Where am I: `pwd`
+- How to create a directory: `mkdir dir_name`
+- How to check files: `ls` or `ls -a`
+- How to create a file: `touch file_name` or `nano file_name`
+- How to read contents of a file without entering the file: `cat file_name`
+- How to copy a file: `cp file_name destination_name`
+- How to move a file: `mv file_name destination_name`
