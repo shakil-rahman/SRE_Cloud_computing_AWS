@@ -149,6 +149,9 @@ sudo systemctl start tomcat9
 # enable tomcat
 sudo systemctl enable tomcat9
 ```
-- Tomcat server runs on port 8080
+- Check the status of tomcat: `systemctl status tomcat9`
+- Change file to exe file: `chmod +x createTomcat.sh`
+- How to run an exe file: `./createTomcat.sh`
+- Tomcat server runs on port: `8080`, Add it to the security group on AWS
 - Tomcat server lets developers implement an array of Java applications
 - Tomcat is also used to deploy web applications (like a web server)
