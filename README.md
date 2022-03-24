@@ -3,6 +3,8 @@
 - Global Infrastructure: https://aws.amazon.com/about-aws/global-infrastructure/
 - Chmod Calculator: https://chmod-calculator.com/ 
 - Amazon VPC Concepts: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
+- DevOps Article: https://medium.com/@ahshahkhan/devops-culture-and-cicd-3761cfc62450 
+- Microsoft Definition of Architectures: https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/ 
 ## User Journey
 ### User Experience
 #### Cloud Computing with AWS
@@ -185,9 +187,45 @@ sudo systemctl enable tomcat9
 #### What are the outbound rules for security groups by default? and why?
 - The default is to allow all outbound traffic to leave 
 - Server doesn't limit who is requesting the resource and what port they are on
+- Outbound is readonly so there are no security issues
 #### What is the command to kill a process in linux?
 - Using Process Name: `killall proccess`
 - Using Process ID: `kill processID`
 - Unresponsive Process: `kill -9 processID`
 
 ![Diagram](img/vpc-security-guards.png)
+
+### Monolith and Microservices Architecture:
+![Diagram](img/monolith.png)
+#### Monolith:
+- Fruitful for simple and lightweight apps
+- Set expectations easy to manage, portable, lightweight
+- Not for scalable businesses 
+#### Microservices:
+- Everything is a service - good for scalability
+- New features can be added while the working code still exists
+- Each service can be tested individually
+- Scale up: when size increases (micro -> medium)
+- Scale out: create more instances when there are more users
+
+### 2-tier and N-tier Architecture:
+![Diagram](img/2andNtierarch.png)
+#### 2-tier:
+- Presentation layer or interface that runs on the client
+- Data layer or data structure that gets stored on a server
+#### N-tier:
+- An N-tier architecture divides an application into logical layers and physical tiers
+- Layers are a way to separate responsibilities and manage dependencies with each layer having a specific responsibility.
+- Higher layers can use services in lower layers, but not the other way round
+
+### Notes from Article:
+- DevOps: Software development methodology that combines development and IT operations through the entire SDLC
+- Docker: Virtualization platform to containerise you app (Paypal, Spotify)
+- Separates non-dependent steps and runs them in parallel
+- Containers allow developers to package up an application with all its parts (libraries, dependencies), and ship it all as one
+- CICD (Continuous Integration Continuous Delivery and Deployment): backbone of DevOps practices and automation (Facebook, Netflix)
+- Benefits are: Faster software builds, customer satisfaction by deploying the app in time
+![Diagram](img/CICD.png)
+- Continuous Integration: Developers merge/commit code to main branch, fully automated build and test process which gives feedback within minutes.
+- Continuous Delivery: An extension of CI to make sure that you can release new changes to your customer in a sustainable way. On top of automating your testing, you also automate your release process and can deploy at any point with a single click (manually).
+- Continuous Deployment: Automates the deployment part on top of doing the delivery part
