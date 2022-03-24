@@ -6,52 +6,52 @@
 - DevOps Article: https://medium.com/@ahshahkhan/devops-culture-and-cicd-3761cfc62450 
 - Microsoft Definition of Architectures: https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/ 
 ## User Journey
-### User Experience
-#### Cloud Computing with AWS
+## User Experience
+### Cloud Computing with AWS
 
-### SRE Role:
+## SRE Role:
 - Making sure the user journey is satisfactory (without any errors)
 
-### Benefits of Cloud Computing:
-#### Ease of use
+## Benefits of Cloud Computing:
+### Ease of use
 - Users are able to quickly and securely host their applications
 - You can use AWS Management Console or APIs to access AWS's application hosting platform
-#### Flexibility
+### Flexibility
 - Able to select any of the different services you require
 - Receive a virtual environment used to load the software and services for your application
 - Easy to migrate 
-#### Robustness
+### Robustness
 - If one region goes down the Auto Scaler can redirect to another Availability Zone (AZ)
 - Can scale up and down on demand
-#### Cost effective
+### Cost effective
 - You only pay resources you use (Compute power, storage)
 - No long term contracts or up-front commitments
 
-### AWS Services:
+## AWS Services:
 - Amazon Web Services (AWS) - A cloud services provider with the largest market share
 - Region represents a separate geographical area (Ireland, London)
 - Availability Zones (AZ) are the actual data centres within each region, there must be at least two AZ in each region
 - Not all services are available at each AZ
 
-### AWS Global Infrastructure:
+## AWS Global Infrastructure:
 ![Global Infrastructure](./img/AWS.JPG)
 
-### Content Delivery Network (CDN):
+## Content Delivery Network (CDN):
 - Servers that are geographically closer to the user and stores your application
 - Goal is to provide high availability and performance
 
-### Solutions:
-#### On-premise
+## Solutions:
+### On-premise
 - User owns all the servers and stores them locally
 - More secure but puts the costs on the user for maintenance and security
-#### Public cloud
+### Public cloud
 - User rents all the server usage from a provider 
 - Provider handles maintenance/security, user only pays for what they use
-#### Hybrid
+### Hybrid
 - User keeps some data local (on-prem) and other data in the cloud (Government, Banks)
 - Allows for better security where needed and lower cost where it isn't needed
 
-### AWS Diagram:
+## AWS Diagram:
 ![AWS Diagram](./img/AWS_diagram.png)
 - First you need an IAM (Identity and Access Management) role that provides you with permissions
 - ec2 (elastic compute service) - Virtual Machine (VM)
@@ -59,7 +59,7 @@
 - Store the file.pem in the .ssh folder
 - VM: Computer file that behaves like an actual computer. AWS needs to know the specs for the VM similar to the specs of a laptop/desktop
 
-### Launch an Instance:
+## Launch an Instance:
 - Select your Region (Ireland - eu-west-1)
 - Select EC2 then Launch Instance
 - Select OS (Ubuntu Server 18.04)
@@ -71,7 +71,7 @@
 - SSH uses port 22, HTTP uses port 80
 - Launch instance
 
-### SSH into an Instance:
+## SSH into an Instance:
 - Locate your private key (105.pem)
 - Change permissions of file to readonly `chmod 400 105.pem`
 - Connect to instance from git bash `ssh -i "105.pem" ubuntu@ec2-34-255-207-109.eu-west-1.compute.amazonaws.com`
@@ -81,7 +81,7 @@
     - `sudo apt-get install nginx -y`
 - Go to the public IP address to check the instance is running
 
-### Linux Commands:
+## Linux Commands:
 - How to become a super user (USE CAREFULLY): `sudo su` then `exit` to return
 - How to check the status of a service: `systemctl status name_service`
 - How to start a service: `sudo systemctl start name_service`
@@ -102,14 +102,14 @@
 - How to delete a directory (remove forcefully): `sudo rm -rf dir_name`
 - How to delete a file: `rm file_name`
 
-### File Permissions:
+## File Permissions:
 - How to check a file permissions: `ll`
 - How to change a files permission: `chmod required_permission file_name`
 - How to create an exe file: `touch file_name.sh`
 - Examples: `400` - readonly, `+x` - executable
 - write `w`, read `r`, executable `x`
 
-### Bash Scripting - Automate Process with a Script:
+## Bash Scripting - Automate Process with a Script:
 ```
 #!/bin/bash
 # it must start with #!/bin/bash
@@ -132,7 +132,7 @@ sudo systemctl enable nginx
 - Change file to exe file: `chmod +x provision.sh`
 - How to run an exe file: `./provision.sh`
 
-### Automate Tomcat with a Script:
+## Automate Tomcat with a Script:
 ```
 #!/bin/bash
 # it must start with #!/bin/bash
@@ -159,66 +159,67 @@ sudo systemctl enable tomcat9
 - Tomcat server lets developers implement an array of Java applications
 - Tomcat is also used to deploy web applications (like a web server)
 
-### Technical Questions:
-#### What is a VPC?
+## Technical Questions:
+### What is a VPC?
 - VPC stands for Virtual Private Cloud
 - It is a secure and isolated private cloud that is hosted within a public cloud
 - Private clouds are cloud computing environments dedicated to a single customer 
-#### What is an internet gateway?
+### What is an internet gateway?
 - A horizontally scaled (highly available) VPC component that allows communications between your VPC and the internet
 - Node that connects two networks with different transmission protocols together
 - It is where data stops before entering the server
-#### What are route tables?
+### What are route tables?
 - A database that keeps track of paths, and uses that information to forward traffic
 - Contain a set of rules, called routes, that determines where traffic from subnet/gateway is directed
-#### What is a subnet?
+### What is a subnet?
 - A range of IP addresses in your VPC
 - They divide the network into more networks
-#### What are NACLs?
+### What are NACLs?
 - NACL stands for Network Access Control List
 - Controls traffic to/from a subnet based on a set of inbound/outbound rules
 - They can be seen as a firewall for the subnet
-#### What are security groups?
+### What are security groups?
 - Acts as a virtual firewall for an EC2 instance
 - Once attached to an EC2 instance it controls inbound/outbound traffic for the instance
-#### How did you secure your app on the public cloud?
+### How did you secure your app on the public cloud?
 - We created security groups that controlled the inbound/outbound traffic
 - We stored a key locally that allowed us to ssh into our instances
-#### What are the outbound rules for security groups by default? and why?
+### What are the outbound rules for security groups by default? and why?
 - The default is to allow all outbound traffic to leave 
 - Server doesn't limit who is requesting the resource and what port they are on
 - Outbound is readonly so there are no security issues
-#### What is the command to kill a process in linux?
+### What is the command to kill a process in linux?
 - Using Process Name: `killall proccess`
 - Using Process ID: `kill processID`
 - Unresponsive Process: `kill -9 processID`
 
 ![Diagram](img/vpc-security-guards.png)
 
-### Monolith and Microservices Architecture:
+## Monolith and Microservices Architecture:
 ![Diagram](img/monolith.png)
-#### Monolith:
+### Monolith:
 - Fruitful for simple and lightweight apps
 - Set expectations easy to manage, portable, lightweight
 - Not for scalable businesses 
-#### Microservices:
+### Microservices:
 - Everything is a service - good for scalability
 - New features can be added while the working code still exists
 - Each service can be tested individually
 - Scale up: when size increases (micro -> medium)
 - Scale out: create more instances when there are more users
 
-### 2-tier and N-tier Architecture:
-![Diagram](img/2andNtierarch.png)
-#### 2-tier:
+## 2-tier and N-tier Architecture:
+### 2-tier:
+![Diagram](img/2-tier.webp)
 - Presentation layer or interface that runs on the client
 - Data layer or data structure that gets stored on a server
-#### N-tier:
+### N-tier:
+![Diagram](img/n-tier.png)
 - An N-tier architecture divides an application into logical layers and physical tiers
 - Layers are a way to separate responsibilities and manage dependencies with each layer having a specific responsibility.
 - Higher layers can use services in lower layers, but not the other way round
 
-### Notes from Article:
+## Notes from Article:
 - DevOps: Software development methodology that combines development and IT operations through the entire SDLC
 - Docker: Virtualization platform to containerise you app (Paypal, Spotify)
 - Separates non-dependent steps and runs them in parallel
@@ -230,7 +231,7 @@ sudo systemctl enable tomcat9
 - Continuous Delivery: An extension of CI to make sure that you can release new changes to your customer in a sustainable way. On top of automating your testing, you also automate your release process and can deploy at any point with a single click (manually).
 - Continuous Deployment: Automates the deployment part on top of doing the delivery part
 
-### SDLC: End-to-End product development
+## SDLC: End-to-End product development
 - Planning: Have an idea of the product and planning how to create it
 - Designing: Create designs for the product
 - Development: Writing the code/Creating the product
