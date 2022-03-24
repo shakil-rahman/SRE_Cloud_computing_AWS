@@ -229,3 +229,11 @@ sudo systemctl enable tomcat9
 - Continuous Integration: Developers merge/commit code to main branch, fully automated build and test process which gives feedback within minutes.
 - Continuous Delivery: An extension of CI to make sure that you can release new changes to your customer in a sustainable way. On top of automating your testing, you also automate your release process and can deploy at any point with a single click (manually).
 - Continuous Deployment: Automates the deployment part on top of doing the delivery part
+
+### SDLC: End-to-End product development
+- Planning: Have an idea of the product and planning how to create it
+- Designing: Create designs for the product
+- Development: Writing the code/Creating the product
+- Testing: Must pass tests before moving forward to production
+- Staging: Holding area before sending out to production (git add .). Allows you to make last minute fixes
+- Production: It's live - in the users hands
