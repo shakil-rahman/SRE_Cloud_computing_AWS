@@ -238,3 +238,11 @@ sudo systemctl enable tomcat9
 - Testing: Must pass tests before moving forward to production
 - Staging: Holding area before sending out to production (git add .). Allows you to make last minute fixes
 - Production: It's live - in the users hands
+
+## Github Best Practices:
+- One person reviewing the code is required
+- Branches should be created for individual tasks, then deleted once merged
+- Someone who is more knowledgeable should merge the branches
+- When a branch is merged everyone working on it must `git pull`
+- `git` will thell you all the commands for git
+- If you delete the .git file you need to `git init` again, then push to github
