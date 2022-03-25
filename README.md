@@ -5,6 +5,8 @@
 - Amazon VPC Concepts: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
 - DevOps Article: https://medium.com/@ahshahkhan/devops-culture-and-cicd-3761cfc62450 
 - Microsoft Definition of Architectures: https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/ 
+- AWS WAF (Web Application Firewall): https://aws.amazon.com/waf/ 
+- AWS S3 Documentation: https://docs.aws.amazon.com/cli/latest/reference/s3/ 
 ## User Journey
 ## User Experience
 ### Cloud Computing with AWS
@@ -215,7 +217,8 @@ sudo systemctl enable tomcat9
 - Data layer or data structure that gets stored on a server
 ### N-tier:
 ![Diagram](img/n-tier.png)
-- An N-tier architecture divides an application into logical layers and physical tiers
+- An N-tier architecture divides an application into logical layers and physical tiers (N number of tiers)
+- A tier is a layer of the application that crosses a process or server boundary
 - Layers are a way to separate responsibilities and manage dependencies with each layer having a specific responsibility.
 - Higher layers can use services in lower layers, but not the other way round
 
@@ -246,3 +249,65 @@ sudo systemctl enable tomcat9
 - When a branch is merged everyone working on it must `git pull`
 - `git` will thell you all the commands for git
 - If you delete the .git file you need to `git init` again, then push to github
+
+## Secure a Web App on AWS:
+- Using AWS WAF (Web Application Firewall): helps to protect your web application from common web exploits
+- Allows you to create security rules that controls bot traffic and blocks common attack patterns (SQL injection, Cross-site scripting)
+- Use Security Groups to control the inbound/outbound traffic
+
+## S3 - Simple Storage Service:
+![S3](img/s3.jpg)
+- Storage on the Cloud and is globally available (highly available: stored on multiple regions)
+- Storage classes - how quickly, frequently you want to access data
+- How quickly you get charged as well
+- S3 Glacier: not available on demand - cheaper (storing ex-employee data)
+- Used for: Data backup - Disaster recovery plan (DR)
+
+## S3 Codealong:
+```
+# install python 3.7
+sudo apt-get install python
+sudo apt-get install python3-pip
+
+# let system know we are using python 3.7
+alias python=python3
+
+# check python --version
+python --version
+
+# run update and upgrade
+sudo apt update -y
+sudo apt upgrade -y
+
+# install pip3
+python3 -m pip install awscli
+
+# install awscli
+sudo apt install awscli
+
+# setup aws config file to store aws keys to access s3 from our ec2
+aws configure
+
+# list dir in s3
+aws s3 ls
+
+# CRUD: 
+# make a bucket (folder) 
+aws s3 mb s3://105-sre-shakilur
+
+# upload data from ec2 to s3 
+touch test.txt
+aws s3 cp test.txt s3://105-sre-shakilur
+
+# download data from s3 (READ)
+rm test.txt
+aws s3 cp s3://105-sre-shakilur/test.txt /home/ubuntu
+
+# delete data on s3 from ec2 using awscli
+aws s3 rm s3://105-sre-shakilur/test.txt
+aws s3 rb s3://105-sre-shakilur
+```
+## AWS Task:
+```
+$scp -i ~/Desktop/amazon.pem ~/Desktop/MS115.fa  ubuntu@ec2-54-166-128-20.compute-1.amazonaws.com:~/data/
+```
