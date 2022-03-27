@@ -307,7 +307,123 @@ aws s3 cp s3://105-sre-shakilur/test.txt /home/ubuntu
 aws s3 rm s3://105-sre-shakilur/test.txt
 aws s3 rb s3://105-sre-shakilur
 ```
-## AWS Task:
+## Deploying an API:
+
+### Pre-requisites:
+- Have an ec2 instance running `Ubuntu Server 18.04`
+- Have Nginx installed on that your ec2 instance
+- Refactor your code so the connection string has localhost
 ```
-$scp -i ~/Desktop/amazon.pem ~/Desktop/MS115.fa  ubuntu@ec2-54-166-128-20.compute-1.amazonaws.com:~/data/
+sudo apt update -y
+sudo apt upgrade -y
+sudo reboot
 ```
+
+### Microsoft SQL Server
+- Install MSSQL onto your ec2 instance: https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-ubuntu?view=sql-server-ver15 
+- Install Microsoft SQL Server Management Studio (SSMS): https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-manage-ssms?view=sql-server-ver15
+- Use SSMS to install the Northwind database: https://github.com/Microsoft/sql-server-samples/tree/master/samples/databases/northwind-pubs
+
+### Release the API
+- Open project in Visual Studio
+- Go to: View -> Terminal
+- Paste the following command: `dotnet publish -c release -r ubuntu.18.04-x64`
+- Go to: Projects folder -> bin -> Release -> net6.0
+- You should have a `ubuntu.18.04-x64` folder which needs to be compressed (.zip)
+
+### Deploy the API
+- Rename the .zip file to API.zip and move it into the .ssh/ folder
+- Open a terminal (Git Bash): `scp -i 105.pem API.zip ubuntu@ec2-xx-xxx-xxx-xx.compute-1.amazonaws.com:`
+- SSH into your ec2 instance
+```
+# Install unzip
+sudo apt install unzip
+
+# Unzip the API.zip
+sudo unzip API.zip
+
+# Move into the new directory
+cd ubuntu.18.04-x64/
+
+# Change permissions of the API to be executable
+sudo chmod 777 ProductsApiApp
+
+# Run the API
+sudo ./ProductsApiApp
+``` 
+
+### Test API Locally
+- SSH into your ec2 instance (on another terminal)
+- Run the API: `curl localhost:5000/api/products/1` 
+- Should return a JSON string back
+
+### Reverse Proxy
+- Start Nginx and Enable it on startup
+```
+sudo systemctl start nginx
+sudo systemctl enable nginx
+``` 
+- Configure Nginx
+```
+sudo nano /etc/nginx/sites-available/default
+
+# Delete all text and replace it with:
+server {
+    listen        80;
+    server_name   example.com *.example.com;
+    location / {
+        proxy_pass         http://127.0.0.1:5000;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection keep-alive;
+        proxy_set_header   Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}
+```
+- From this tutorial: https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-6.0 
+
+### Create a Bash Script
+- https://www.youtube.com/watch?v=-aKb-k8B8xo
+- Begin by being inside of the ubuntu.18.04-x64 directory: `cd ~/ubuntu.18.04-x64`
+```
+# Create my-startup.sh
+touch my-startup.sh
+
+# Make my-startup.sh executable
+sudo chmod +x my-startup.sh
+
+# Write the script that runs the API
+#!/bin/bash
+cd /home/ubuntu/ubuntu.18.04-x64
+sudo ./ProductsApiApp
+```
+
+### Create a Service
+- Move to correct directory: `cd /etc/systemd/system
+```
+# Create my-startup.service
+sudo nano my-startup.service
+
+# Paste the following to run your bash script
+[Unit]
+Description=My Startup
+
+[Service]
+ExecStart=/home/ubuntu/ubuntu.18.04-x64/my-startup.sh
+
+[Install]
+WantedBy=multi-user.target
+
+# Start your new service
+sudo systemctl start my-startup.service
+
+# Enable your new service
+sudo systemctl enable my-startup.service
+```
+- Now you API application should run on startup
+
+### Diagram of the API Project:
+![Diagram](img/API%20Diagram.jpg)
