@@ -433,12 +433,14 @@ sudo systemctl enable my-startup.service
 ### Diagram of Docker
 ![Diagram](img/docker.png)
 ### Docker
-- Containerisation platform
+- Containerisation platform: runs applications in isolated containers
 - Docker Hub: like github for pushing images
 - Uses microservice architecture to deploy applications
-
+- Benefits of Docker:
+- - Speed: It is lightweight and runs quickly
+- - Fault Isolation: Each container is isolated so a fault in one container will not affect another
 - Virtualisation: takes the resources for itself (reserves the resources)
-- VM requires the hypervisor (translator) to communicate with host OS
+- VM requires the hypervisor (translator) to communicate with the host OS
 - Docker communicates natively with the system kernel
 - Docker shares the resources (only uses them when needed)
 
