@@ -494,12 +494,15 @@ docker stop containerID
 # start container
 docker start containerID
 
-# interact with container
+# interact with container using shell
 alias docker="winpty docker"
 docker exec -it containerID sh
 
 # check logs of container
 docker logs containerID
+
+# download docker docs on localhost
+docker run -d -p 4000:4000 docs/docker.github.io 
 ```
 
 ## Docker Shell Commands:
