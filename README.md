@@ -7,6 +7,7 @@
 - Microsoft Definition of Architectures: https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/ 
 - AWS WAF (Web Application Firewall): https://aws.amazon.com/waf/ 
 - AWS S3 Documentation: https://docs.aws.amazon.com/cli/latest/reference/s3/ 
+- Docker Cheatsheet: https://dockerlabs.collabnix.com/docker/cheatsheet/
 ## User Journey
 ## User Experience
 ### Cloud Computing with AWS
@@ -402,7 +403,7 @@ sudo ./ProductsApiApp
 ```
 
 ### Create a Service
-- Move to correct directory: `cd /etc/systemd/system
+- Move to correct directory: `cd /etc/systemd/system`
 ```
 # Create my-startup.service
 sudo nano my-startup.service
@@ -427,3 +428,107 @@ sudo systemctl enable my-startup.service
 
 ### Diagram of the API Project:
 ![Diagram](img/API%20Diagram.jpg)
+
+## Docker & Containers:
+### Diagram of Docker
+![Diagram](img/docker.png)
+### Docker
+- Containerisation platform
+- Docker Hub: like github for pushing images
+- Uses microservice architecture to deploy applications
+
+- Virtualisation: takes the resources for itself (reserves the resources)
+- VM requires the hypervisor (translator) to communicate with host OS
+- Docker communicates natively with the system kernel
+- Docker shares the resources (only uses them when needed)
+
+- Images are immutable (can't be changed)
+- Containers can be edited (kinda like instances of an image)
+### VM vs Docker:
+![Diagram](img/vm-docker.jpg)
+
+## Install Docker
+### Install Docker from Website
+- Link: https://docs.docker.com/desktop/windows/install/
+- Troubleshoot: https://docs.docker.com/desktop/windows/troubleshoot/#virtualization
+### Enable Virtualisation in BIOS (MSI)
+- Boot into BIOS [Del]
+- Select "Overclocking"
+- Go to "OC Explore Mode" and turn that to "Expert"
+- Scroll to "CPU Features"
+- Select "SVM Mode" and "Enable"
+- Save and Exit (F10)
+
+### Install WSL update
+- Step 4: https://docs.microsoft.com/en-us/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package 
+
+## Docker Commands:
+```
+# See images you have installed
+docker images
+
+# delete docker image
+docker image rm imageID
+
+# docker pull downloads the image
+docker pull name
+
+# downloads and runs containers
+docker run
+
+# see containers that are running
+docker ps
+
+# see containers that are exited  (not running)
+docker ps -a
+
+# delete a running container (force)
+docker rm containerID -f 
+
+# run nginx (detached) (port)
+docker run -d -p 80:80 nginx 
+
+# stop container
+docker stop containerID
+
+# start container
+docker start containerID
+
+# interact with container
+alias docker="winpty docker"
+docker exec -it containerID sh
+
+# check logs of container
+docker logs containerID
+```
+
+## Docker Shell Commands:
+```
+# find the html
+cd /usr/share/nginx/html
+
+# view the index.html
+cat index.html
+
+# update and install nano
+apt update -y
+apt install nano -y
+
+# edit the html
+
+# how to leave a container
+exit
+```
+## Docker Copy Files:
+```
+# copy file from localhost to docker container (open bash in file location)
+docker cp index.html containerID:/usr/share/nginx/html
+```
+## Create Docker Image and Push
+```
+# create an image from a container
+docker commit containerID username/repo_name
+
+# push the image to dockerhub
+docker push username/repo_name:latest
+```
