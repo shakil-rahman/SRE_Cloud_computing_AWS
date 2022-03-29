@@ -531,9 +531,12 @@ docker cp index.html containerID:/usr/share/nginx/html
 ```
 ## Create Docker Image and Push
 ```
-# create an image from a container
+# create an image from a container (saved locally)
 docker commit containerID username/repo_name
 
-# push the image to dockerhub
+# push the image to dockerhub (globally available)
 docker push username/repo_name:latest
+
+# pull the image from dockerhub and run it
+docker run -d -p 80:80 shakilrahman/105_sre
 ```
