@@ -600,5 +600,8 @@ ENTRYPOINT ["dotnet", "ProductsApiApp.dll"]
 docker build -t shakilrahman/105_sre_api .
 
 # push the image to Dockerhub
-docker push 
+docker push shakilrahman/105_sre_api
+
+# run the image in a container (listens on port 80)
+docker run -d -p 50:80 shakilrahman/105_sre_api
 ```
