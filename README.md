@@ -430,15 +430,15 @@ sudo systemctl enable my-startup.service
 ![Diagram](img/API%20Diagram.jpg)
 
 ## Docker & Containers:
-### Diagram of Docker
+### Diagram of Docker (REST API):
 ![Diagram](img/docker.png)
 ### Docker
 - Containerisation platform: runs applications in isolated containers
 - Docker Hub: like github for pushing images
 - Uses microservice architecture to deploy applications
 - Benefits of Docker:
-- - Speed: It is lightweight and runs quickly
-- - Fault Isolation: Each container is isolated so a fault in one container will not affect another
+    - Speed: It is lightweight and runs quickly
+    - Fault Isolation: Each container is isolated so a fault in one container will not affect another
 - Virtualisation: takes the resources for itself (reserves the resources)
 - VM requires the hypervisor (translator) to communicate with the host OS
 - Docker communicates natively with the system kernel
@@ -539,4 +539,66 @@ docker push username/repo_name:latest
 
 # pull the image from dockerhub and run it
 docker run -d -p 80:80 shakilrahman/105_sre
+```
+## Volumes
+- Volume makes data persistent
+- Can be different sizes
+- Can be shared by localhost and container/shared between containers
+- Sync your localhost to your container
+
+## Docker File for Automation of Building Customised Images (Building a Microservice):
+- Automate Image Building of our Custom Nginx Image
+- Create a `Dockerfile` in the same location as our index.html
+- Decide which base image to use for your image (Nginx)
+```
+# Select base image 
+FROM nginx
+
+# Label it - add optional details
+LABEL MAINTAINER=SHAKIL
+
+# Copy the data from localhost to container (index.html -> /usr/share/nginx/html/)
+COPY index.html /usr/share/nginx/html
+
+# Expose the required port (Port 80 for Nginx)
+EXPOSE 80
+
+# Launch the app 
+# CMD will run the command, in this case to launch the image when we create a container
+CMD ["nginx", "-g", "daemon off;"]
+```
+### Test the Image Locally to Ensure it Works
+- If it runs then you can push it to Dockerhub
+
+### Other Containerisation Platforms
+- Crio - Rocket - Docker
+
+## Docker API
+Tutorial: https://www.youtube.com/watch?v=f0lMGPB10bM&ab_channel=LesJackson 
+- Publish the API into a Folder
+- Create a `Dockerfile` in the base folder
+```
+# select base image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+
+# label it
+LABEL MAINTAINER=SHAKIL
+
+# copy the published app
+COPY bin/Release/net6.0/publish/ App/
+WORKDIR /App
+
+# expose port 80
+EXPOSE 80
+
+# run dotnet command on the .dll file
+ENTRYPOINT ["dotnet", "ProductsApiApp.dll"]
+```
+- Open Git Bash inside the ProductsApiApp folder
+```
+# build the image with the Dockerfile
+docker build -t shakilrahman/105_sre_api .
+
+# push the image to Dockerhub
+docker push 
 ```
