@@ -541,6 +541,7 @@ docker push username/repo_name:latest
 docker run -d -p 80:80 shakilrahman/105_sre
 ```
 ## Volumes
+![Diagram](img/volumes.png)
 - Volume makes data persistent
 - Can be different sizes
 - Can be shared by localhost and container/shared between containers
@@ -567,11 +568,10 @@ EXPOSE 80
 # CMD will run the command, in this case to launch the image when we create a container
 CMD ["nginx", "-g", "daemon off;"]
 ```
-### Test the Image Locally to Ensure it Works
+- Test the Image Locally to Ensure it Works
 - If it runs then you can push it to Dockerhub
-
-### Other Containerisation Platforms
-- Crio - Rocket - Docker
+- Other Containerisation Platforms:
+    - Crio - Rocket - Docker
 
 ## Docker API
 Tutorial: https://www.youtube.com/watch?v=f0lMGPB10bM&ab_channel=LesJackson 
@@ -605,3 +605,46 @@ docker push shakilrahman/105_sre_api
 # run the image in a container (listens on port 80)
 docker run -d -p 50:80 shakilrahman/105_sre_api
 ```
+
+## Microsoft SQL Server with Northwind:
+- Create docker container with MSSQL 
+```
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
+```
+- Open `Microsoft SQL Server Management Studio`
+- Connect using SQL Server Authentication
+    - Server Name: localhost, 1433
+    - Login: sa
+    - Password: strongPassw0rd
+- Create `New Query` and Install Northwind database
+- Create an image of your MSSQL Server with Northwind
+```
+docker commit containerID shakilrahman/mssql-northwind
+```
+
+## Docker Compose 
+```
+version: '3'
+services:
+  db:
+    image: shakilrahman/mssql-northwind
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Shakil22!"
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+    depends_on:
+      - db
+  products-api:
+    build: .
+    ports:
+      - "80:80"
+```
+- Before running this make sure Port 80 and Port 1433 are open
+- Refactor the code to so connection string contains `server = db, 1433` (matches the name in docker-compose.yaml)
+- Creates the MSSQL database with Northwind using `shakilrahman/mssql-northwind`
+- Creates the API using the `Dockerfile` 
+- Run: `docker-compose up`
+- Two Containers should be created and the API should run on Port 80 (localhost)
+- Tutorial: https://www.youtube.com/watch?v=4V7CwC_4oss
