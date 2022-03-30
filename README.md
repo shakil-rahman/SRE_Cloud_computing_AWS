@@ -634,12 +634,12 @@ services:
       MSSQL_PID: Express
     ports:
       - "1433:1433"
-    depends_on:
-      - db
   products-api:
     build: .
     ports:
       - "80:80"
+    depends_on:
+      - db
 ```
 - Before running this make sure Port 80 and Port 1433 are open
 - Refactor the code to so connection string contains `server = db, 1433` (matches the name in docker-compose.yaml)
