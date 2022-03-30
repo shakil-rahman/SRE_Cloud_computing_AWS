@@ -1,0 +1,28 @@
+apiVersion: apps/v1 # which api to use for deployment
+kind: Deployment # what kind of service/object you are creating
+
+# what would you like to call it?
+metadata:
+  name: api-deployment # naming the deployment
+
+# specification
+spec:
+  selector:
+    matchLabels:
+      app: api # look for this label to match with K8 service
+  # Lets create a replica set with 3 instances/pods
+  replicas: 3
+
+  # template to use its label for K8 service to launch in the browser
+  template:
+    metadata:
+      labels:
+        app: api # This label connects to the service or any other K8 component
+
+    # Define the container specs
+    spec:
+      containers:
+      - name: api
+        image: shakilrahman/105_sre_api:latest
+        ports:
+        - containerPort: 80

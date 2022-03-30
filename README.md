@@ -622,7 +622,7 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong(!)Password" -p 1433:143
 docker commit containerID shakilrahman/mssql-northwind
 ```
 
-## Docker Compose 
+## Docker Compose (YAML)
 ```
 version: '3'
 services:
@@ -653,14 +653,14 @@ services:
 - Also known as K8
 - Developed and run by Google for over 15 years
 - Now owned by the Linux foundation and is open-source
-- Orchestrate the containers and Organise how they connect
+- Used to Orchestrate the containers and Organise how they connect
 - Advantages:
   - Self Healing: When a pod crashes another is spun up automatically
   - Load Balancing: When a pod crashes the load balancer redirects the traffic to another pod 
   - Auto Scaling: Allows you to create more pods when required
   - Automated rollouts and rollback: When an image is not working it can rollback to a working version
 - Each pod (smallest item in K8) has its own IP address
-- If a pod crashes then it will delete the pod and then creates a replica
+- If a pod crashes then the controller-manager will delete the pod and then creates a replica
 - Load balancer will redirect the traffic to another pod (Scheduler)
 
 ### Kubernetes Diagram:
@@ -760,3 +760,88 @@ kubectl get service_name
   plugin        Provides utilities for interacting with plugins
   version       Print the client and server version information
 ```
+## YAML (Yet Another Markup Language):
+### What is YAML?
+- Yet Another Markup Language
+- YAML Ain't Markup Language
+### How to create a yml file
+- Name file: filename.yml or filename.yaml
+### How to declare it as a YAML file
+- Use: `---` (at the top of the new file)
+### What are the use case?
+- Can be utilised by: K8, Docker-compose, Ansible, Cloud-formation
+- To codify anything and everything in order to automate processes 
+### YAML file
+- Create a file for nginx_deploy.yml
+- Create a file for nginx_svc.yml
+- YML is case sensitive, Indentation is important
+### YAML Deployment:
+- Create a deployment for nginx with 3 pods/containers
+```
+apiVersion: apps/v1 # which api to use for deployment
+kind: Deployment # what kind of service/object you are creating
+
+# what would you like to call it
+metadata:
+  name: nginx-deployment # naming the deployment
+
+# specification
+spec:
+  selector:
+    matchLabels:
+      app: nginx # look for this label to match with K8 service
+  # Lets create a replica set with 3 instances/pods
+  replicas: 3
+
+  # template to use its label for K8 service to launch in the browser
+  template:
+    metadata:
+      labels:
+        app: nginx # This label connects to the service or any other K8 component
+
+    # Define the container specs
+    spec:
+      containers:
+      - name: nginx
+        image: shakilrahman/105_sre_nginx:latest
+        ports:
+        - containerPort: 80
+```
+- To run the deploy: `kubectl create -f nginx_deployment.yml`
+- To get the deploy: `kubectl get deploy nginx-deployment`
+- To see the pods: `kubectl get pods`
+- Get more information on the deploy: `kubectl describe deploy` 
+- Get more information on pods: `kubectl describe podName`
+- To delete the deployment: `kubectl delete deploy nginx-deployment`
+- To edit a deployment: `kubectl edit deploy nginx-deployment`
+kubctl get all
+### YAML Service:
+- Create a service: cluster-ip (local), NodePort (global), LoadBalancer (global)
+```
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: nginx-svc
+  namespace: default
+
+# Specification to include ports Selector to connect to deployment
+spec:
+  ports:
+  - nodePort: 30442 # range 30000 - 32768
+    port: 80 # port to use on localhost
+    protocol: TCP
+    targetPort: 80 # target our app uses 
+
+# Define the selector and label to connect to nginx deployment
+  selector:
+    app: nginx # this label connects this service to deployement
+
+  # Creating LoadBalancer type of deployement
+  type: LoadBalancer
+```
+- To run the service: `kubectl create -f nginx_svc.yml` It should now run in `localhost`
+- To delete a pod: `kubectl delete pod podID` automatically creates a new pod to replace it
+- Get more information on the service: `kubectl describe svc` 
+- To delete the service: `kubectl delete svc nginx-deployment`
