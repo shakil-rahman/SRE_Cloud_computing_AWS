@@ -113,7 +113,7 @@
 - write `w`, read `r`, executable `x`
 
 ## Bash Scripting - Automate Process with a Script:
-```
+```sh
 #!/bin/bash
 # it must start with #!/bin/bash
 
@@ -136,7 +136,7 @@ sudo systemctl enable nginx
 - How to run an exe file: `./provision.sh`
 
 ## Automate Tomcat with a Script:
-```
+```sh
 #!/bin/bash
 # it must start with #!/bin/bash
 
@@ -265,7 +265,7 @@ sudo systemctl enable tomcat9
 - Used for: Data backup - Disaster recovery plan (DR)
 
 ## S3 Codealong:
-```
+```sh
 # install python 3.7
 sudo apt-get install python
 sudo apt-get install python3-pip
@@ -314,7 +314,7 @@ aws s3 rb s3://105-sre-shakilur
 - Have an ec2 instance running `Ubuntu Server 18.04`
 - Have Nginx installed on that your ec2 instance
 - Refactor your code so the connection string has localhost
-```
+```sh
 sudo apt update -y
 sudo apt upgrade -y
 sudo reboot
@@ -336,7 +336,7 @@ sudo reboot
 - Rename the .zip file to API.zip and move it into the .ssh/ folder
 - Open a terminal (Git Bash): `scp -i 105.pem API.zip ubuntu@ec2-xx-xxx-xxx-xx.compute-1.amazonaws.com:`
 - SSH into your ec2 instance
-```
+```sh
 # Install unzip
 sudo apt install unzip
 
@@ -360,12 +360,12 @@ sudo ./ProductsApiApp
 
 ### Reverse Proxy
 - Start Nginx and Enable it on startup
-```
+```sh
 sudo systemctl start nginx
 sudo systemctl enable nginx
 ``` 
 - Configure Nginx
-```
+```sh
 sudo nano /etc/nginx/sites-available/default
 
 # Delete all text and replace it with:
@@ -389,7 +389,7 @@ server {
 ### Create a Bash Script
 - https://www.youtube.com/watch?v=-aKb-k8B8xo
 - Begin by being inside of the ubuntu.18.04-x64 directory: `cd ~/ubuntu.18.04-x64`
-```
+```sh
 # Create my-startup.sh
 touch my-startup.sh
 
@@ -404,7 +404,7 @@ sudo ./ProductsApiApp
 
 ### Create a Service
 - Move to correct directory: `cd /etc/systemd/system`
-```
+```sh
 # Create my-startup.service
 sudo nano my-startup.service
 
@@ -465,7 +465,7 @@ sudo systemctl enable my-startup.service
 - Step 4: https://docs.microsoft.com/en-us/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package 
 
 ## Docker Commands:
-```
+```sh
 # See images you have installed
 docker images
 
@@ -508,7 +508,7 @@ docker run -d -p 4000:4000 docs/docker.github.io
 ```
 
 ## Docker Shell Commands:
-```
+```sh
 # find the html
 cd /usr/share/nginx/html
 
@@ -525,12 +525,12 @@ apt install nano -y
 exit
 ```
 ## Docker Copy Files:
-```
+```bash
 # copy file from localhost to docker container (open bash in file location)
 docker cp index.html containerID:/usr/share/nginx/html
 ```
 ## Create Docker Image and Push
-```
+```bash
 # create an image from a container (saved locally)
 docker commit containerID username/repo_name
 
@@ -551,7 +551,7 @@ docker run -d -p 80:80 shakilrahman/105_sre
 - Automate Image Building of our Custom Nginx Image
 - Create a `Dockerfile` in the same location as our index.html
 - Decide which base image to use for your image (Nginx)
-```
+```Dockerfile
 # Select base image 
 FROM nginx
 
@@ -577,7 +577,7 @@ CMD ["nginx", "-g", "daemon off;"]
 Tutorial: https://www.youtube.com/watch?v=f0lMGPB10bM&ab_channel=LesJackson 
 - Publish the API into a Folder
 - Create a `Dockerfile` in the base folder
-```
+```Dockerfile
 # select base image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 
@@ -595,7 +595,7 @@ EXPOSE 80
 ENTRYPOINT ["dotnet", "ProductsApiApp.dll"]
 ```
 - Open Git Bash inside the ProductsApiApp folder
-```
+```bash
 # build the image with the Dockerfile
 docker build -t shakilrahman/105_sre_api .
 
@@ -608,7 +608,7 @@ docker run -d -p 50:80 shakilrahman/105_sre_api
 
 ## Microsoft SQL Server with Northwind:
 - Create docker container with MSSQL 
-```
+```bash
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
 ```
 - Open `Microsoft SQL Server Management Studio`
@@ -618,12 +618,12 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong(!)Password" -p 1433:143
     - Password: strongPassw0rd
 - Create `New Query` and Install Northwind database
 - Create an image of your MSSQL Server with Northwind
-```
+```bash
 docker commit containerID shakilrahman/mssql-northwind
 ```
 
 ## Docker Compose (YAML)
-```
+```yml
 version: '3'
 services:
   db:
@@ -671,7 +671,7 @@ services:
 - Orchestration with K8 to make your life easier
 
 ## Kubernetes Commands:
-```
+```bash
 # list all commands
 kubectl
 
@@ -696,27 +696,27 @@ kubectl get service_name
 ```
 ## Kubernetes Cheatsheet (`kubectl`):
 ### Basic Commands (Beginner):
-```
+```bash
   create        Create a resource from a file or from stdin
   expose        Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
   run           Run a particular image on the cluster
   set           Set specific features on objects
 ```
 ### Basic Commands (Intermediate):
-```
+```bash
   explain       Get documentation for a resource
   get           Display one or many resources
   edit          Edit a resource on the server
   delete        Delete resources by file names, stdin, resources and names, or by resources and label selector
 ```
 ### Deploy Commands:
-```
+```bash
   rollout       Manage the rollout of a resource
   scale         Set a new size for a deployment, replica set, or replication controller
   autoscale     Auto-scale a deployment, replica set, stateful set, or replication controller
 ```
 ### Cluster Management Commands:
-```
+```bash
   certificate   Modify certificate resources.
   cluster-info  Display cluster information
   top           Display resource (CPU/memory) usage
@@ -726,7 +726,7 @@ kubectl get service_name
   taint         Update the taints on one or more nodes
 ```
 ### Troubleshooting and Debugging Commands:
-```
+```bash
   describe      Show details of a specific resource or group of resources
   logs          Print the logs for a container in a pod
   attach        Attach to a running container
@@ -738,7 +738,7 @@ kubectl get service_name
   debug         Create debugging sessions for troubleshooting workloads and nodes
 ```
 ### Advanced Commands:
-```
+```bash
   diff          Diff the live version against a would-be applied version
   apply         Apply a configuration to a resource by file name or stdin
   patch         Update fields of a resource
@@ -747,13 +747,13 @@ kubectl get service_name
   kustomize     Build a kustomization target from a directory or URL.
 ```
 ### Settings Commands:
-```
+```bash
   label         Update the labels on a resource
   annotate      Update the annotations on a resource
   completion    Output shell completion code for the specified shell (bash or zsh)
 ```
 ### Other Commands:
-```
+```bash
   api-resources Print the supported API resources on the server
   api-versions  Print the supported API versions on the server, in the form of "group/version"
   config        Modify kubeconfig files
@@ -777,7 +777,7 @@ kubectl get service_name
 - YML is case sensitive, Indentation is important
 ### YAML Deployment:
 - Create a deployment for nginx with 3 pods/containers
-```
+```yml
 apiVersion: apps/v1 # which api to use for deployment
 kind: Deployment # what kind of service/object you are creating
 
@@ -817,7 +817,7 @@ spec:
 kubctl get all
 ### YAML Service:
 - Create a service: cluster-ip (local), NodePort (global), LoadBalancer (global)
-```
+```yml
 ---
 apiVersion: v1
 kind: Service
@@ -845,3 +845,63 @@ spec:
 - To delete a pod: `kubectl delete pod podID` automatically creates a new pod to replace it
 - Get more information on the service: `kubectl describe svc` 
 - To delete the service: `kubectl delete svc nginx-deployment`
+
+## Deploying API Microservice in K8 Cluster
+### Create API Deployment `api_deployment.yml`:
+```yml
+apiVersion: apps/v1 # which api to use for deployment
+kind: Deployment # what kind of service/object you are creating
+
+# what would you like to call it?
+metadata:
+  name: api-deployment # naming the deployment
+
+# specification
+spec:
+  selector:
+    matchLabels:
+      app: api # look for this label to match with K8 service
+  # Lets create a replica set with 3 instances/pods
+  replicas: 3
+
+  # template to use its label for K8 service to launch in the browser
+  template:
+    metadata:
+      labels:
+        app: api # This label connects to the service or any other K8 component
+
+    # Define the container specs
+    spec:
+      containers:
+      - name: api
+        image: shakilrahman/105_sre_api:latest
+        ports:
+        - containerPort: 80
+```
+### Create API Service `api_svc.yml`:
+```yml
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: api-svc
+  namespace: default
+
+# Specification to include ports Selector to connect to deployment
+spec:
+  ports:
+  - nodePort: 30443 # range 30000 - 32768
+    port: 50 # port to use on localhost
+    protocol: TCP
+    targetPort: 80 # target our app uses 
+
+# Define the selector and label to connect to nginx deployment
+  selector:
+    app: api # this label connects this service to deployement
+
+  # Creating LoadBalancer type of deployement
+  type: LoadBalancer
+```
+### API Cluster Diagram:
+![Diagram](img/cluster.png)
