@@ -648,3 +648,115 @@ services:
 - Run: `docker-compose up`
 - Two Containers should be created and the API should run on Port 80 (localhost)
 - Tutorial: https://www.youtube.com/watch?v=4V7CwC_4oss
+
+## Kubernetes:
+- Also known as K8
+- Developed and run by Google for over 15 years
+- Now owned by the Linux foundation and is open-source
+- Orchestrate the containers and Organise how they connect
+- Advantages:
+  - Self Healing: When a pod crashes another is spun up automatically
+  - Load Balancing: When a pod crashes the load balancer redirects the traffic to another pod 
+  - Auto Scaling: Allows you to create more pods when required
+  - Automated rollouts and rollback: When an image is not working it can rollback to a working version
+- Each pod (smallest item in K8) has its own IP address
+- If a pod crashes then it will delete the pod and then creates a replica
+- Load balancer will redirect the traffic to another pod (Scheduler)
+
+### Kubernetes Diagram:
+![Diagram](img/kubernetes.png)
+### Best Practice
+- Start with a small team, test, learn and move on
+- Use Docker to contrainerise your apps for fast and constant delivery
+- Orchestration with K8 to make your life easier
+
+## Kubernetes Commands:
+```
+# list all commands
+kubectl
+
+# get the kubernetes services 
+kubectl get service
+kubectl get svc
+
+# get service created by cluster
+kubectl get svc nginx_svc 
+kubectl get deploy nginx_deploy
+
+# list all the pods (running and not running)
+kubectl get pods
+
+# get more information on the pods
+# describe can be used for other svc and more
+kubectl describe pod pod_name
+kubectl describe pod podID
+
+# name of deployement, pod, replica set
+kubectl get service_name
+```
+## Kubernetes Cheatsheet (`kubectl`):
+### Basic Commands (Beginner):
+```
+  create        Create a resource from a file or from stdin
+  expose        Take a replication controller, service, deployment or pod and expose it as a new Kubernetes service
+  run           Run a particular image on the cluster
+  set           Set specific features on objects
+```
+### Basic Commands (Intermediate):
+```
+  explain       Get documentation for a resource
+  get           Display one or many resources
+  edit          Edit a resource on the server
+  delete        Delete resources by file names, stdin, resources and names, or by resources and label selector
+```
+### Deploy Commands:
+```
+  rollout       Manage the rollout of a resource
+  scale         Set a new size for a deployment, replica set, or replication controller
+  autoscale     Auto-scale a deployment, replica set, stateful set, or replication controller
+```
+### Cluster Management Commands:
+```
+  certificate   Modify certificate resources.
+  cluster-info  Display cluster information
+  top           Display resource (CPU/memory) usage
+  cordon        Mark node as unschedulable
+  uncordon      Mark node as schedulable
+  drain         Drain node in preparation for maintenance
+  taint         Update the taints on one or more nodes
+```
+### Troubleshooting and Debugging Commands:
+```
+  describe      Show details of a specific resource or group of resources
+  logs          Print the logs for a container in a pod
+  attach        Attach to a running container
+  exec          Execute a command in a container
+  port-forward  Forward one or more local ports to a pod
+  proxy         Run a proxy to the Kubernetes API server
+  cp            Copy files and directories to and from containers
+  auth          Inspect authorization
+  debug         Create debugging sessions for troubleshooting workloads and nodes
+```
+### Advanced Commands:
+```
+  diff          Diff the live version against a would-be applied version
+  apply         Apply a configuration to a resource by file name or stdin
+  patch         Update fields of a resource
+  replace       Replace a resource by file name or stdin
+  wait          Experimental: Wait for a specific condition on one or many resources
+  kustomize     Build a kustomization target from a directory or URL.
+```
+### Settings Commands:
+```
+  label         Update the labels on a resource
+  annotate      Update the annotations on a resource
+  completion    Output shell completion code for the specified shell (bash or zsh)
+```
+### Other Commands:
+```
+  api-resources Print the supported API resources on the server
+  api-versions  Print the supported API versions on the server, in the form of "group/version"
+  config        Modify kubeconfig files
+  plugin        Provides utilities for interacting with plugins
+  version       Print the client and server version information
+```
