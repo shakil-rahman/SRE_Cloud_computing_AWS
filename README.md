@@ -663,8 +663,10 @@ services:
 - If a pod crashes then the controller-manager will delete the pod and then creates a replica
 - Load balancer will redirect the traffic to another pod (Scheduler)
 
-### Kubernetes Diagram:
+### Kubernetes Architecture:
 ![Diagram](img/kubernetes.png)
+### Kubernetes Deployment:
+![Diagram](img/replicas.png)
 ### Best Practice
 - Start with a small team, test, learn and move on
 - Use Docker to contrainerise your apps for fast and constant delivery
