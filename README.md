@@ -999,4 +999,12 @@ kubectl edit svc my-api
 # leave the edit (ESC) save and quit
 :wq!
 ```
-NACL vs Security Groups (stateless and statefull)
+## NACL vs Security Groups (stateless and stateful):
+### NACL (Network Access Control List)
+- Adds a layer of security to the subnets
+- A single NACL can be used by multiple, but each subnet can only have one NACL
+- They are stateless, meaning any change applied to an incoming rule isn't automatically applied to an outgoing rule
+### Security Groups (SG):
+- Adds a layer of security to an individual ec2 instance
+- Instances can be associated by one or more security groups that are created by the user
+- They are stateful, meaning any change applied to an incoming rule is automatically applied to an outgoing rule 
