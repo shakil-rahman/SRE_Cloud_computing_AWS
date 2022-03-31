@@ -10,7 +10,7 @@ metadata:
 spec:
   ports:
   - nodePort: 30443 # range 30000 - 32768
-    port: 50 # port to use on localhost
+    port: 80 # port to use on localhost
     protocol: TCP
     targetPort: 80 # target our app uses 
 

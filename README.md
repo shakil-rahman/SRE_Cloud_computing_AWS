@@ -765,15 +765,15 @@ kubectl get service_name
 - Yet Another Markup Language
 - YAML Ain't Markup Language
 ### How to create a yml file
-- Name file: filename.yml or filename.yaml
+- Name file: `filename.yml` or `filename.yaml`
 ### How to declare it as a YAML file
 - Use: `---` (at the top of the new file)
 ### What are the use case?
 - Can be utilised by: K8, Docker-compose, Ansible, Cloud-formation
 - To codify anything and everything in order to automate processes 
 ### YAML file
-- Create a file for nginx_deploy.yml
-- Create a file for nginx_svc.yml
+- Create a file for `nginx_deploy.yml`
+- Create a file for `nginx_svc.yml`
 - YML is case sensitive, Indentation is important
 ### YAML Deployment:
 - Create a deployment for nginx with 3 pods/containers
@@ -814,7 +814,7 @@ spec:
 - Get more information on pods: `kubectl describe podName`
 - To delete the deployment: `kubectl delete deploy nginx-deployment`
 - To edit a deployment: `kubectl edit deploy nginx-deployment`
-kubctl get all
+- To get all running objects: `kubctl get all`
 ### YAML Service:
 - Create a service: cluster-ip (local), NodePort (global), LoadBalancer (global)
 ```yml
@@ -892,7 +892,7 @@ metadata:
 spec:
   ports:
   - nodePort: 30443 # range 30000 - 32768
-    port: 50 # port to use on localhost
+    port: 80 # port to use on localhost
     protocol: TCP
     targetPort: 80 # target our app uses 
 
