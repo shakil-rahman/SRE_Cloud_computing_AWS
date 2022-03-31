@@ -8,6 +8,7 @@
 - AWS WAF (Web Application Firewall): https://aws.amazon.com/waf/ 
 - AWS S3 Documentation: https://docs.aws.amazon.com/cli/latest/reference/s3/ 
 - Docker Cheatsheet: https://dockerlabs.collabnix.com/docker/cheatsheet/
+- Kubectl Commands: https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands  
 ## User Journey
 ## User Experience
 ### Cloud Computing with AWS
@@ -621,7 +622,10 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong(!)Password" -p 1433:143
 ```bash
 docker commit containerID shakilrahman/mssql-northwind
 ```
-
+- Push the image to your Dockerhub
+```bash
+docker push shakilrahman/mssql-northwind
+```
 ## Docker Compose (YAML)
 ```yml
 version: '3'
@@ -907,3 +911,92 @@ spec:
 ```
 ### API Cluster Diagram:
 ![Diagram](img/cluster.png)
+
+## Deploying API to Cloud (AWS)
+- Plan your strategy to deploy the application
+- Ask for the minimum requirements (t2.medium)
+- Use Ubuntu Server 18.04
+### 
+![Diagram](img/plan.png)
+### User Data script
+```
+#!/bin/bash
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install nginx -y
+```
+### Install Docker and Kubernetes on EC2 Instance:
+- Install Docker: https://github.com/khanmaster/docker_setup 
+- Install Minikube: https://www.radishlogic.com/kubernetes/running-minikube-in-aws-ec2-ubuntu/ 
+```sh
+# install docker
+sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt install docker.io -y
+
+# check docker is running
+systemctl status docker
+
+# install kubectl
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+# install minikube
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+
+# check minikube version
+minikube version
+
+# install conntrack
+sudo apt install conntrack
+
+# become root user
+sudo -i
+
+# start minikube
+minikube start --vm-driver=none
+
+# check the status of minikube
+minikube status
+```
+### How to Deploy the API:
+```sh
+# copy the yml files (deployment, service)
+scp -i ~/.ssh/105.pem source-path destination-path:
+
+# move to the correct directory
+cd ../home/ubuntu
+
+# your yaml files should be located here
+ls
+
+# create the deployment
+kubectl create -f api_deployment.yml
+
+# create the service
+kubectl create -f api_service.yml
+
+# check the running svc and get the Node Port
+kubectl get svc
+
+# run the ip:nodeport in the browser
+http://54.154.22.56:30443/index.html 
+```
+### Alternative Way to Deploy API:
+```sh
+# create the deployment
+kubectl create deployment my-api --image=shakilrahman/105_sre_api:localhost --replicas=3
+
+# expose the deployment
+kubectl expose deployment my-api --port=80 --target-port=80
+
+# get the running services
+kubectl get svc
+
+# edit the service to be NodePort
+kubectl edit svc my-api
+
+# leave the edit (ESC) save and quit
+:wq!
+```
+NACL vs Security Groups (stateless and statefull)
